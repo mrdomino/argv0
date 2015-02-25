@@ -1,13 +1,17 @@
-#include <assert.h>
 #include <stdio.h>
+#include <string.h>
 
-int main(int argc, const char* argv[])
+int
+main(int argc, char* argv[])
 {
-	int ret;
+	int   r = 0;
+	char *s = "usage: %s\n";
 
-	assert(argc > 0);
-	ret = puts(*argv) == EOF;
-	if (ret)
-		perror("puts");
-	return (int)ret;
+	if (argc != 1)
+		r |= 1;
+	else
+		s += strlen("usage: ");
+	if (dprintf(r + 1, s, argv[0]) < 0)
+		r |= 2;
+	return r;
 }

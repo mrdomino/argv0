@@ -1,7 +1,9 @@
 all: argv0
--include config.mk
+include config.mk
 argv0: argv0.o
-argv0.o: config.mk Makefile
+	${LD} ${LDFLAGS} -o argv0 argv0.o
+argv0.o: argv0.c config.mk Makefile
+	${CC} ${CFLAGS} -c argv0.c
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp -f argv0 ${DESTDIR}${PREFIX}/bin
